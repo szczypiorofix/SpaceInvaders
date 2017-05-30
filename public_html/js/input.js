@@ -9,6 +9,7 @@ var Input = function() {
     this.keyRight = keyboard(39);
     this.keyUp = keyboard(38);
     this.keyDown = keyboard(40);
+    this.keyCTRL = keyboard(17);
     
     function keyboard(keyCode) {
         var key = {};

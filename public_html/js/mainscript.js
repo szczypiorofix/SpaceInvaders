@@ -1,101 +1,66 @@
-
-    var BG_COLOR = 0x111111;
-    var ship = null;
-    var background = null;
-    var input = new Input();
-    var vx = 5, vy = 5;
-    var pixi = PIXI;
+    function e(element) {
+        return document.getElementById(element);
+    }
     
-    var Game = {
-        screenWidth: 0,
-        screenHeight: 0,
-        renderer: null,
-        stage: null,
-        initialize: function() {
 
-            this.stage = new pixi.Container();
-            this.renderer = pixi.autoDetectRenderer(256, 256);
-            document.body.appendChild(this.renderer.view);
-            this.renderer.backgroundColor = BG_COLOR;
-            this.renderer.autoResize = true;
-            this.renderer.view.style.position = "absolute";
-            this.renderer.view.style.display = "block";
-            this.renderer.resize(window.innerWidth, window.innerHeight);
-            this.screenWidth = this.renderer.width;
-            this.screenHeight = this.renderer.height;
-            document.body.appendChild(this.renderer.view);
-            this.stage = new PIXI.Container();
-            this.renderer.render(this.stage);
-        },
+    
+    var GameCanvas = {
+        canvas : null,
+        context : null,
+        screenWidth : 0,
+        screenHeight : 0,
         
-        addTextField: function(text, x, y, color, font, size) {
-            if (typeof color === 'undefined') color = 'white';
-            var t = new PIXI.Text(text, {fontFamily: font, fontSize: size, fill: color});
-            t.position.set(x, y);
-            this.stage.addChild(t);
+        create : function(tag) {
+            this.canvas = e(tag);
+            this.context = this.canvas.getContext('2d');
+            this.context.imageSmoothingEnabled = false;
+            this.screenWidth = this.canvas.width;
+            this.screenHeight = this.canvas.height;
         }
     };
     
-    function gameLoop() {
-         requestAnimationFrame(gameLoop);
- 
-         if (input.keyLeft.isDown) {
-             ship.x -= vx;
-         }
-         
-         if (input.keyRight.isDown) {
-             ship.x += vx;
-         }
-         
-         if (input.keyUp.isDown) {
-             ship.y -= vy;
-         }
-         
-         if (input.keyDown.isDown) {
-             ship.y += vy;
-         }
- 
-        Game.renderer.render(Game.stage);
+    
+    
+    var gameManager = new GameManager();
+        
+    var background = new Sprite('images/background.png', GameCanvas.context);
+    
+    var audio = new Audio('music/OutThere.ogg');
+    audio.loop = true;
+    audio.play();
+       
+    
+    function mainLoop() {
+        update();
+        draw(GameCanvas.context);
+        requestAnimationFrame(mainLoop);
+    }    
+    
+    function update() {
+        
+        gameManager.update();
+        
     }
     
-    function loadSprites() {
-        
-        
-        PIXI.loader.add("images/spaceship.png").load(setup);
 
-        function setup() {
+    function drawBackground(context) {
+        context.drawImage(background.image, 0, 0, GameCanvas.screenWidth, GameCanvas.screenHeight);
+    }
+    
+    function draw(context) {    
+        // BACKGROUND
+        drawBackground(context);
 
-            var texture = PIXI.utils.TextureCache["images/spaceship.png"];
-            var rectangle = new PIXI.Rectangle(0, 0, 32, 32);
-            texture.frame = rectangle;
-            ship = new PIXI.Sprite(texture);
-            ship.width = 64;
-            ship.height = 64;
-            ship.x = Game.screenWidth / 2;
-            ship.y = Game.screenHeight - ship.height - 20;
-            Game.stage.addChild(ship);
-            
-            Game.renderer.render(Game.stage);
-        }
+        
+        gameManager.draw(context);
     }
     
     window.onload = function() {
-        
-        Game.initialize();
-        loadSprites();
-        
-        var player1 = new GameObject(GameObjectType.PLAYER, 10, 10, "Player");
-        var player2 = new GameObject(GameObjectType.ENEMY, 20, 20, "Enemy");
-        
-        var playerF = new Player(66, 66, "Specjał!");
-        playerF.fight();
-        
-        //console.log("playerF construktor: " +playerF.constructor);
-        
-        player1.draw();
-        player2.update();
-        
-        Game.addTextField("SPACE INVADERS", (Game.screenWidth / 2) - 140, 50, 'red', 'Courier', 42);
-        
-        gameLoop();
+
+            GameCanvas.create('gameCanvas');
+            
+            gameManager.loadLevel(1);
+            
+            var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+            requestAnimationFrame(mainLoop);
     };

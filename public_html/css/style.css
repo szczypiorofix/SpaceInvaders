@@ -1,12 +1,16 @@
 @CHARSET "UTF-8";
 
     httml, body {
-        background-color: #333;
-        padding: 0;
-        margin: 0;
+        background-color: #222;
     }
     
-    canvas {
-        padding: 0;
-        margin: 0;
+    .canvasDiv {
+        width: 640px;
+        height: 480px;
+        margin: 0 auto;
+    }
+    
+    #gameCanvas {        
+        padding: 10px;
+        background-color: #111;
     }
