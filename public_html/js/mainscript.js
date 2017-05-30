@@ -4,7 +4,7 @@
     var background = null;
     var input = new Input();
     var vx = 5, vy = 5;
-    
+    var pixi = PIXI;
     
     var Game = {
         screenWidth: 0,
@@ -13,8 +13,8 @@
         stage: null,
         initialize: function() {
 
-            this.stage = new PIXI.Container();
-            this.renderer = PIXI.autoDetectRenderer(256, 256);
+            this.stage = new pixi.Container();
+            this.renderer = pixi.autoDetectRenderer(256, 256);
             document.body.appendChild(this.renderer.view);
             this.renderer.backgroundColor = BG_COLOR;
             this.renderer.autoResize = true;
@@ -83,6 +83,17 @@
         
         Game.initialize();
         loadSprites();
+        
+        var player1 = new GameObject(GameObjectType.PLAYER, 10, 10, "Player");
+        var player2 = new GameObject(GameObjectType.ENEMY, 20, 20, "Enemy");
+        
+        var playerF = new Player(66, 66, "Specjał!");
+        playerF.fight();
+        
+        //console.log("playerF construktor: " +playerF.constructor);
+        
+        player1.draw();
+        player2.update();
         
         Game.addTextField("SPACE INVADERS", (Game.screenWidth / 2) - 140, 50, 'red', 'Courier', 42);
         
