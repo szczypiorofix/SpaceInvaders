@@ -4,11 +4,24 @@ var GameManager = function() {
     this.player = null;
     this.alien = [];
     this.bullet = null;
+    this.alienBullet = null;
   
     
     this.updateCollection = function(collection) {
+        
+        
+        
         for (i = 0; i < collection.length; i++) {
             collection[i].update();
+            
+            var randomShot = null;
+            if (collection[i].alive && !this.alienBullet.shot) randomShot = Math.floor(Math.random() * collection.length);
+            
+            if (collection[i].alive && randomShot === i && !this.alienBullet.shot) {
+                this.alienBullet.x = collection[i].x + 12;
+                this.alienBullet.y = collection[i].y + 35;
+                this.alienBullet.shot = true;
+            }
         }
     };
   
@@ -16,6 +29,7 @@ var GameManager = function() {
         this.player.update();
         this.updateCollection(this.alien);
         this.bullet.update();
+        this.alienBullet.update();
     };
     
     this.drawCollection = function(collection, context) {
@@ -28,16 +42,19 @@ var GameManager = function() {
         this.player.draw(context);
         this.drawCollection(this.alien, context);
         this.bullet.draw(context);
+        this.alienBullet.draw(context);
     };
     
     this.loadLevel = function(level) {
         
         this.bullet = new Bullet(200, 200);
         
+        this.alienBullet = new AlienBullet(200, 200);
+        
         this.player = new Player(GameCanvas.screenWidth / 2 - 35, GameCanvas.screenHeight - 100, this.bullet);
         
         for (i = 0; i < 10; i++) {
-            this.alien[i] = new Alien(50 + (i * 50), 50);
+            this.alien[i] = new Alien(70 + (i * 50), 50);
         }
     };
 };

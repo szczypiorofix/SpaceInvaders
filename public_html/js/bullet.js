@@ -4,7 +4,7 @@ var Bullet = function(x, y) {
     this.y = y;
     this.speed = 10;
     this.shot = false;
-    
+    this.hitAudio = new Audio('music/hit.wav');
     this.sprite = new Sprite('images/bullet.png');
     
     
@@ -27,8 +27,11 @@ var Bullet = function(x, y) {
             if (this.x > (gameManager.alien[i].x)
                 && (this.x < gameManager.alien[i].x + gameManager.alien[i].width)
                 && (this.y > gameManager.alien[i].y)
-                && (this.y < gameManager.alien[i].y + gameManager.alien[i].height)) {
-                console.log("SHOT !!!");
+                && (this.y < gameManager.alien[i].y + gameManager.alien[i].height)
+                && gameManager.alien[i].alive) {
+                gameManager.alien[i].alive = false;
+                score++;
+                this.hitAudio.play();
             }
         }
     };

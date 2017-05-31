@@ -3,6 +3,7 @@ var Player = function(x, y, bullet) {
     this.x = x;
     this.y = y;
     this.isShooting = false;
+    this.alive = true;
     this.sprite = new Sprite('images/spaceship.png');
     this.bullet = bullet;
     this.speedX = 5;
@@ -16,7 +17,7 @@ var Player = function(x, y, bullet) {
     
     this.playerAnim = new Animation(this.sprite, 4, 3, this.imageOrigin, this.imageScale);
     
-    var audio = new Audio('music/shot.wav');
+    var shotAudio = new Audio('music/shot.wav');
     
     this.update = function() {
         
@@ -27,7 +28,7 @@ var Player = function(x, y, bullet) {
             this.bullet.x = this.x + (this.imageOrigin/2) -3;
             this.bullet.y = this.y + 5;
             this.isShooting = false;
-            audio.play();
+            shotAudio.play();
         }
                 
         if (this.input.keyUp.isDown && this.y > 200) {

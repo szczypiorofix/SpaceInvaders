@@ -1,6 +1,5 @@
 var Sprite = function(filename, context) {
 
-    // CONSTRUCTOR
     this.image = null;
     this.width = 0;
     this.height = 0;
