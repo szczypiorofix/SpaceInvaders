@@ -14,3 +14,35 @@
         padding: 10px;
         background-color: #111;
     }
+    
+    #gameCanvas:hover {
+        cursor: none;
+    }
+    
+    .nextLevelBtn {
+        background-color: #444;
+        padding: 10px;
+        border: 3px solid #555;
+        border-radius: 5px;
+        font-size: 18px;
+        color: azure;
+        display: none;
+    }
+    
+    .nextLevelBtn:hover {
+        background-color: #333;
+    }
+    
+    .restartBtn {
+        background-color: #444;
+        padding: 10px;
+        border: 3px solid #555;
+        border-radius: 5px;
+        font-size: 18px;
+        color: azure;
+        display: none;
+    }
+    
+    .restartBtn:hover {
+        background-color: #333;
+    }

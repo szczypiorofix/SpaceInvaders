@@ -5,11 +5,11 @@
         <META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Wróblewski Piotr, 'Space Invades'">
+        <meta name="description" content="Wróblewski Piotr - SPACE INVADERS">
         <meta name="author" content="Wróblewski Piotr">
         <meta property="og:title" content="Wróblewski Piotr">
         <meta property="og:image" content="https://wroblewskipiotr.pl/furyroad/furyroad.png">
-        <meta property="og:description" content="Wróblewski Piotr, 'Space Invades'">
+        <meta property="og:description" content="Wróblewski Piotr - SPACE INVADERS">
         <title>Space Invades</title>
         <link rel="stylesheet" href="css/style.css?v=1.1">
         <link rel="icon" href="icon.png">
@@ -18,40 +18,18 @@
         <div class="canvasDiv">
             <canvas id="gameCanvas" width="640" height="480"></canvas>
         </div>
-        
-        
-        
-        <!--   http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/  -->
-        <canvas id="myCanvas" width="578" height="200" style="background-color: #555;"></canvas>
-    <script>
-      function writeMessage(canvas, message) {
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.font = '18pt Calibri';
-        context.fillStyle = 'black';
-        context.fillText(message, 10, 25);
-      }
-      function getMousePos(canvas, evt) {
-        var rect = canvas.getBoundingClientRect();
-        return {
-          x: evt.clientX - rect.left,
-          y: evt.clientY - rect.top
-        };
-      }
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
+        <div style="width: 120px; margin: 0 auto; margin-top: 30px;">
+            <button class="nextLevelBtn" id="nextLevel">Next level</button>
+        </div>
+        <div style="width: 120px; margin: 0 auto; margin-top: 30px;">
+            <button class="restartBtn" id="restart">Restart</button>
+        </div>
 
-      canvas.addEventListener('mousemove', function(evt) {
-        var mousePos = getMousePos(canvas, evt);
-        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-        writeMessage(canvas, message);
-      }, false);
-    </script>
-        
         <script src="js/input.js"></script>
         <script src="js/sprite.js"></script>
         <script src="js/animation.js"></script>
         <script src="js/hud.js"></script>
+        <script src="js/dot.js"></script>
         <script src="js/bullet.js"></script>
         <script src="js/alien.js"></script>
         <script src="js/player.js"></script>

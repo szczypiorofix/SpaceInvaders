@@ -6,8 +6,7 @@ var Bullet = function(x, y) {
     this.shot = false;
     this.hitAudio = new Audio('music/hit.wav');
     this.sprite = new Sprite('images/bullet.png');
-    
-    
+
     this.update = function() {
         if (this.shot) {
             this.y -= this.speed;
@@ -31,6 +30,7 @@ var Bullet = function(x, y) {
                 && gameManager.alien[i].alive) {
                 gameManager.alien[i].alive = false;
                 score++;
+                this.shot = false;
                 this.hitAudio.play();
             }
         }

@@ -1,7 +1,8 @@
-var Alien = function(x, y) {
+var Alien = function(x, y, level) {
     
     this.x = x;
     this.y = y;
+    this.level = level;
     this.width = 32;
     this.height = 32;
     this.alive = true;
@@ -20,7 +21,8 @@ var Alien = function(x, y) {
     this.moveOffset = 60;
     this.moveStart = this.x;
     this.moveStep = 1;
-    this.moveSpeed = 3;
+    this.moveSpeed = 5 - level;
+    if (this.moveSpeed < 0) this.moveSpeed = 0;
     this.speedCounter = this.moveSpeed;
     
     // FIRING
@@ -60,13 +62,13 @@ var Alien = function(x, y) {
 
 
 // ALIEN BULLET
-var AlienBullet = function(x, y) {
+var AlienBullet = function(x, y, level) {
     this.x = x;
     this.y = y;
-    this.speed = 3;
+    this.speed = level * 2;
     this.shot = false;
     this.hitAudio = new Audio('music/hit.wav');
-    this.sprite = new Sprite('images/bullet.png');
+    this.sprite = new Sprite('images/bulletAlien.png');
     
     this.update = function() {
         
