@@ -22,6 +22,11 @@
 //            console.log('x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY);
 //        }
 
+    var GameState = {MainMenu: 0, Game: 1, GameWon: 2, GameLoose: 3};
+    var gameState = GameState.MainMenu;
+    
+    console.log(gameState);
+    
     var scoreText = null;
     var livesText = null;
     var levelText = null;
@@ -36,7 +41,9 @@
     
     var gameManager = new GameManager();
     var background = new Sprite('images/background.png', GameCanvas.ctx);
-    var audio = new Audio('music/OutThere.ogg');
+    //var audio = new Audio('music/OutThere.ogg');
+    // https://opengameart.org/content/darker-waves
+    var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
     audio.loop = true;
     audio.play();
 
