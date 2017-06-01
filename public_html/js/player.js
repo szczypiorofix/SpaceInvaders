@@ -18,6 +18,7 @@ var Player = function(x, y, bullet) {
     this.playerAnim = new Animation(this.sprite, 4, 3, this.imageOrigin, this.imageScale);
     
     this.shotAudio = new Audio('music/shot.wav');
+    this.shotAudio.volume = 0.2;
     
     this.update = function() {
 

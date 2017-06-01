@@ -5,6 +5,7 @@ var Bullet = function(x, y) {
     this.speed = 10;
     this.shot = false;
     this.hitAudio = new Audio('music/hit.wav');
+    this.hitAudio.volume = 0.2;
     this.sprite = new Sprite('images/bullet.png');
 
     this.update = function() {

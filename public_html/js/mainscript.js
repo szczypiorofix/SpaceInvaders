@@ -25,8 +25,6 @@
     var GameState = {MainMenu: 0, Game: 1, GameWon: 2, GameLoose: 3};
     var gameState = GameState.MainMenu;
     
-    console.log(gameState);
-    
     var scoreText = null;
     var livesText = null;
     var levelText = null;
@@ -40,12 +38,16 @@
     var lives = initialLives;
     
     var gameManager = new GameManager();
-    var background = new Sprite('images/background.png', GameCanvas.ctx);
     //var audio = new Audio('music/OutThere.ogg');
     // https://opengameart.org/content/darker-waves
-    var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
-    audio.loop = true;
-    audio.play();
+    //var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
+    //audio.loop = true;
+    //audio.play();
+    
+    var player = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
+    player.load('music/chiptune_no_170.mod', function(buffer) {
+       player.play(buffer);
+     });
 
     
     function mainLoop() {
@@ -145,11 +147,11 @@
         GameCanvas.canvas.onmousedown = function() { gameManager.player.isShooting = true; };
         GameCanvas.canvas.onmouseup = function() { gameManager.player.isShooting = false; };
 
-        endGameText = new HUD_Text("GAME OVER", 270, GameCanvas.screenHeight / 2, '32px Comic Sans MS', 'red');
-        winText = new HUD_Text("YOU WIN !!!", 270, GameCanvas.screenHeight / 2, '32px Comic Sans MS', 'crimson');
-        scoreText = new HUD_Text("SCORE: "+score, 50, 30, '24px Comic Sans MS', 'lime');
-        livesText = new HUD_Text("LIVES: "+lives, 250, 30, '24px Comic Sans MS', 'azure');
-        levelText = new HUD_Text("LIVES: "+level, 450, 30, '24px Comic Sans MS', 'Beige');
+        endGameText = new HUD_Text("GAME OVER", 270, GameCanvas.screenHeight / 2, '42px Orbitron', 'red');
+        winText = new HUD_Text("YOU WIN !!!", 270, GameCanvas.screenHeight / 2, '42px Orbitron', 'crimson');
+        scoreText = new HUD_Text("SCORE: "+score, 50, 20, '24px Orbitron', 'lime');
+        livesText = new HUD_Text("LIVES: "+lives, 250, 20, '24px Orbitron', 'Beige');
+        levelText = new HUD_Text("LIVES: "+level, 450, 20, '24px Orbitron', 'lime');
 
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         requestAnimationFrame(mainLoop);

@@ -1,12 +1,12 @@
-var Alien = function(x, y, level) {
+var Alien = function(sprite, x, y, level) {
     
+    this.sprite = sprite;
     this.x = x;
     this.y = y;
     this.level = level;
     this.width = 32;
     this.height = 32;
     this.alive = true;
-    this.sprite = new Sprite('images/alien.png');
     
     this.speedX = 5;
     this.speedY = 5;
@@ -28,7 +28,7 @@ var Alien = function(x, y, level) {
     // FIRING
     this.isShooting = false;
     
-    this.alienAnim = new Animation(this.sprite, 10, 3, this.imageOrigin, this.imageScale);
+    this.alienAnim = new Animation(this.sprite, 15, 3, this.imageOrigin, this.imageScale);
     
     this.update = function() {
         if (this.alive) this.alienAnim.nextStep();
@@ -68,6 +68,8 @@ var AlienBullet = function(x, y, level) {
     this.speed = level * 2;
     this.shot = false;
     this.hitAudio = new Audio('music/hit.wav');
+    this.hitAudio.volume = 0.3;
+    
     this.sprite = new Sprite('images/bulletAlien.png');
     
     this.update = function() {
