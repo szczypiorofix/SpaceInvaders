@@ -40,14 +40,14 @@
     var gameManager = new GameManager();
     //var audio = new Audio('music/OutThere.ogg');
     // https://opengameart.org/content/darker-waves
-    //var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
-    //audio.loop = true;
-    //audio.play();
+    var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
+    audio.loop = true;
+    audio.play();
     
-    var player = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
-    player.load('music/chiptune_no_170.mod', function(buffer) {
-       player.play(buffer);
-     });
+    //var player = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
+    //player.load('music/chiptune_no_170.mod', function(buffer) {
+    //   player.play(buffer);
+    // });
 
     
     function mainLoop() {

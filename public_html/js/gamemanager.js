@@ -71,14 +71,14 @@ var GameManager = function() {
         this.player = new Player(GameCanvas.screenWidth / 2 - 35, GameCanvas.screenHeight - 100, this.bullet);
         
         for (i = 0; i < 10; i++) {
-            this.alien[i] = new Alien(new Sprite('images/alien1.png'), 70 + (i * 50), 80, level);
+            this.alien[i] = new Alien(new Sprite('images/old/alien1.png'), 70 + (i * 50), 80, level);
         }
         for (i = 10; i < 20; i++) {
-            this.alien[i] = new Alien(new Sprite('images/alien2.png'), 70 + ((i - 10) * 50), 130, level);
+            this.alien[i] = new Alien(new Sprite('images/old/alien1.png'), 70 + ((i - 10) * 50), 130, level);
         }
         
         for (i = 20; i < 30; i++) {
-            this.alien[i] = new Alien(new Sprite('images/alien3.png'), 70 + ((i - 20) * 50), 180, level);
+            this.alien[i] = new Alien(new Sprite('images/old/alien2.png'), 70 + ((i - 20) * 50), 180, level);
         }
     };
     
