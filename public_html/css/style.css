@@ -2,7 +2,6 @@
 
     @import url('https://fonts.googleapis.com/css?family=Orbitron');
 
-
     httml, body {
         background-color: #222;
     }
@@ -16,12 +15,73 @@
     #gameCanvas {        
         padding: 10px;
         background-color: #111;
+        display: none;
     }
     
     #gameCanvas:hover {
         cursor: none;
     }
     
+    #mainmenudiv {
+        background-color: #222;
+        width: 220px;
+        margin: 0px auto;
+        margin-top: 50px;
+    }
+    
+    #helpdiv {
+        font-family: 'Orbitron', sans-serif;
+        display: none;
+        color: azure;
+        background-color: #444;
+        width: 400px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    
+    .gameTitle {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 48px;
+        text-align: center;
+        color: azure;
+        text-shadow: -5px -5px 10px #5555FF, 5px 5px 15px #FF5555;
+        margin: 20px;
+        letter-spacing: 5px;
+        animation-name: example;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    
+    @keyframes example {
+        0%   {text-shadow: -5px -5px 10px #ff6666, 5px 5px 15px #ff6666;}
+        25%  {text-shadow: -5px -5px 10px #b3ff66, 5px 5px 15px #b3ff66;}
+        50%  {text-shadow: -5px -5px 10px #66ffff, 5px 5px 15px #66ffff;}
+        75%  {text-shadow: -5px -5px 10px #b366ff, 5px 5px 15px #b366ff;}
+        100% {text-shadow: -5px -5px 10px #ff6666, 5px 5px 15px #ff6666;}        
+    }
+    
+    .mybutton {
+        font-family: 'Orbitron', sans-serif;
+        width: 220px;
+        padding: 14px 28px;
+        color: #eec;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        font-weight: 900;
+        font-size: 18px;
+        text-shadow: -1px -1px 0 #333;
+        border-radius: 5px;
+    }
+    
+    .mybutton:hover {        
+        color: #ee9;
+        transition: all 150ms linear;
+        letter-spacing: 1px;
+        font-weight: 900;
+        text-shadow: -1px -1px 0 #222;
+    }
+
     .nextLevelBtn {
         font-family: 'Orbitron', sans-serif;
         background-color: #444;
@@ -51,3 +111,18 @@
     .restartBtn:hover {
         background-color: #333;
     }
+    
+    .success {background-color: #4CAF50;} /* Green */
+    .success:hover {background-color: #46a049;}
+
+    .info {background-color: #2196F3;} /* Blue */
+    .info:hover {background: #0b7dda;}
+
+    .warning {background-color: #ff9800;} /* Orange */
+    .warning:hover {background: #e68a00;}
+
+    .danger {background-color: #f44336;} /* Red */ 
+    .danger:hover {background: #da190b;}
+
+    .default {background-color: #e7e7e7; color: black;} /* Gray */ 
+    .default:hover {background: #ddd;}

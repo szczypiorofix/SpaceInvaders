@@ -6,15 +6,18 @@ var HUD_Text = function(text, x, y, font, color) {
     this.font = font;
     this.color = color;
       
-    GameCanvas.ctx.font = this.font;
+    
     GameCanvas.ctx.fillStyle = this.color;
     
     
     this.draw = function() {
-        var style = GameCanvas.ctx.fillStyle;
+        var s = GameCanvas.ctx.fillStyle;
+        var f = GameCanvas.ctx.font;
         GameCanvas.ctx.fillStyle = this.color;
+        GameCanvas.ctx.font = this.font;
         GameCanvas.ctx.fillText(this.text, this.x, this.y);
-        GameCanvas.ctx.fillStyle = style;
+        GameCanvas.ctx.fillStyle = s;
+        GameCanvas.ctx.font = f;
     };
     
     this.update = function(text) {

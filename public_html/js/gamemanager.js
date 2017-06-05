@@ -32,7 +32,7 @@ var GameManager = function() {
     this.update = function() {
         this.alienAlive = false;
         this.updateCollection(this.dots);
-        this.player.update();
+        if (this.player.alive) this.player.update();
         this.updateCollection(this.alien);
         this.bullet.update();
         this.alienBullet.update();
@@ -46,7 +46,7 @@ var GameManager = function() {
     
     this.draw = function(context) {
         this.drawCollection(this.dots, context);
-        this.player.draw(context);
+        if (this.player.alive) this.player.draw(context);
         this.drawCollection(this.alien, context);
         this.bullet.draw(context);
         this.alienBullet.draw(context);
