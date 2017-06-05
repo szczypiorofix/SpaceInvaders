@@ -38,7 +38,6 @@
     var lives = initialLives;
     
     var gameManager = new GameManager();
-    //var audio = new Audio('music/OutThere.ogg');
     // https://opengameart.org/content/darker-waves
     var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
     audio.loop = true;
