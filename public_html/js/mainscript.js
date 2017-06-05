@@ -143,8 +143,12 @@
         }
 
         // STEROWANIE MYSZKĄ :)
-        GameCanvas.canvas.onmousedown = function() { gameManager.player.isShooting = true; };
-        GameCanvas.canvas.onmouseup = function() { gameManager.player.isShooting = false; };
+        GameCanvas.canvas.onmousedown = function() {
+            gameManager.player.isShooting = true;
+        };
+        GameCanvas.canvas.onmouseup = function() {
+            gameManager.player.isShooting = false;
+        };
 
         endGameText = new HUD_Text("GAME OVER", 270, GameCanvas.screenHeight / 2, '42px Orbitron', 'red');
         winText = new HUD_Text("YOU WIN !!!", 270, GameCanvas.screenHeight / 2, '42px Orbitron', 'crimson');
