@@ -30,7 +30,7 @@ var Bullet = function(x, y) {
                 && (this.y < gameManager.alien[i].y + gameManager.alien[i].height)
                 && gameManager.alien[i].alive) {
                 gameManager.alien[i].alive = false;
-                score++;
+                score += level;
                 this.shot = false;
                 this.hitAudio.play();
             }
