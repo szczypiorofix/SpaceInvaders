@@ -23,9 +23,21 @@ var Bullet = function(x, y) {
     };
     
     this.checkCollisions = function() {
+        
+        for (i = 0; i < gameManager.walls.length; i++) {
+            if (this.x + 4> (gameManager.walls[i].x)
+                && (this.x + 3 < gameManager.walls[i].x + gameManager.walls[i].width)
+                && (this.y > gameManager.walls[i].y)
+                && (this.y < gameManager.walls[i].y + gameManager.walls[i].height)
+                && gameManager.walls[i].alive) {
+                this.shot = false;
+                this.hitAudio.play();
+            }
+        }
+        
         for (i = 0; i < gameManager.alien.length; i++) {
-            if (this.x > (gameManager.alien[i].x)
-                && (this.x < gameManager.alien[i].x + gameManager.alien[i].width)
+            if (this.x + 4> (gameManager.alien[i].x)
+                && (this.x +2 < gameManager.alien[i].x + gameManager.alien[i].width)
                 && (this.y > gameManager.alien[i].y)
                 && (this.y < gameManager.alien[i].y + gameManager.alien[i].height)
                 && gameManager.alien[i].alive) {

@@ -7,6 +7,7 @@ var Alien = function(sprite, x, y, level) {
     this.width = 32;
     this.height = 32;
     this.alive = true;
+    this.isAlien = true;
     
     this.speedX = 5;
     this.speedY = 5;
@@ -88,15 +89,29 @@ var AlienBullet = function(x, y, level) {
     };
     
     this.checkCollisions = function() {
-            if (this.x > (gameManager.player.x)
-                && (this.x < gameManager.player.x + gameManager.player.width)
-                && (this.y > gameManager.player.y)
-                && (this.y < gameManager.player.y + gameManager.player.height)
-                && gameManager.player.alive) {
-                lives--;
+        
+        for (i = 0; i < gameManager.walls.length; i++) {
+            if (this.x + 4> (gameManager.walls[i].x)
+                && (this.x +2 < gameManager.walls[i].x + gameManager.walls[i].width)
+                && (this.y > gameManager.walls[i].y)
+                && (this.y < gameManager.walls[i].y + gameManager.walls[i].height)
+                && gameManager.walls[i].alive) {
                 this.shot = false;
-                this.hitAudio.play();
+                //console.log('Wall hit!');
+                gameManager.walls[i].health --;
+                if (gameManager.walls[i].health <= 0) gameManager.walls[i].alive = false;
             }
+        }
+        
+        if (this.x +4 > (gameManager.player.x)
+            && (this.x + 2 < gameManager.player.x + gameManager.player.width)
+            && (this.y > gameManager.player.y)
+            && (this.y < gameManager.player.y + gameManager.player.height)
+            && gameManager.player.alive) {
+            lives--;
+            this.shot = false;
+            this.hitAudio.play();
+        }
     };
     
     this.draw = function(context) {

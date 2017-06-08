@@ -2,6 +2,7 @@ var GameManager = function() {
     
     this.player = null;
     this.alien = [];
+    this.walls = [];
     this.bullet = null;
     this.alienBullet = null;
     this.alienAlive = false;
@@ -9,22 +10,26 @@ var GameManager = function() {
   
     this.clearLevel = function() {
         this.alien = [];
+        this.walls = [];
     };
     
     this.updateCollection = function(collection) {
         for (i = 0; i < collection.length; i++) {
             collection[i].update();
             
-            // CHECK ALIVE
-            if (collection[i].alive) this.alienAlive = true;
-            
-            var randomShot = null;
-            if (collection[i].alive && !this.alienBullet.shot) randomShot = Math.floor(Math.random() * collection.length);
-            
-            if (collection[i].alive && randomShot === i && !this.alienBullet.shot) {
-                this.alienBullet.x = collection[i].x + 12;
-                this.alienBullet.y = collection[i].y + 35;
-                this.alienBullet.shot = true;
+            // ONLY ALIENS CAN SHOT
+            if (collection[i].isAlien) {
+                // CHECK ALIVE
+                if (collection[i].alive) this.alienAlive = true;
+
+                var randomShot = null;
+                if (collection[i].alive && !this.alienBullet.shot) randomShot = Math.floor(Math.random() * collection.length);
+
+                if (collection[i].alive && randomShot === i && !this.alienBullet.shot) {
+                    this.alienBullet.x = collection[i].x + 12;
+                    this.alienBullet.y = collection[i].y + 35;
+                    this.alienBullet.shot = true;
+                }   
             }
         }
     };
@@ -34,6 +39,7 @@ var GameManager = function() {
         this.updateCollection(this.dots);
         if (this.player.alive) this.player.update();
         this.updateCollection(this.alien);
+        this.updateCollection(this.walls);
         this.bullet.update();
         this.alienBullet.update();
     };
@@ -46,6 +52,7 @@ var GameManager = function() {
     
     this.draw = function(context) {
         this.drawCollection(this.dots, context);
+        this.drawCollection(this.walls, context);
         if (this.player.alive) this.player.draw(context);
         this.drawCollection(this.alien, context);
         this.bullet.draw(context);
@@ -68,17 +75,21 @@ var GameManager = function() {
         
         this.createBackground();
         
-        this.player = new Player(GameCanvas.screenWidth / 2 - 35, GameCanvas.screenHeight - 100, this.bullet);
+        this.player = new Player(GameCanvas.screenWidth / 2 - 35, GameCanvas.screenHeight - 50, this.bullet);
         
         for (i = 0; i < 10; i++) {
-            this.alien[i] = new Alien(new Sprite('images/old/alien1.png'), 70 + (i * 50), 80, level);
+            this.alien[i] = new Alien(new Sprite('images/alien1.png'), 70 + (i * 50), 80, level);
         }
         for (i = 10; i < 20; i++) {
-            this.alien[i] = new Alien(new Sprite('images/old/alien1.png'), 70 + ((i - 10) * 50), 130, level);
+            this.alien[i] = new Alien(new Sprite('images/alien1.png'), 70 + ((i - 10) * 50), 130, level);
         }
         
         for (i = 20; i < 30; i++) {
-            this.alien[i] = new Alien(new Sprite('images/old/alien2.png'), 70 + ((i - 20) * 50), 180, level);
+            this.alien[i] = new Alien(new Sprite('images/alien2.png'), 70 + ((i - 20) * 50), 180, level);
+        }
+        
+        for (i = 0; i < 3; i++) {
+            this.walls[i] = new Wall(new Sprite('images/wall.png'), 110 + (i * 180), 350);
         }
     };
     

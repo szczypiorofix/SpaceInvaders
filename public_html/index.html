@@ -2,14 +2,14 @@
 <html lang="en">
     <head>
         <!-- GOOGLE ANALYTICS SCRIPT -->
-        <script>
+<!--        <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
                 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-84715211-1', 'auto');
             ga('send', 'pageview');
-        </script>
+        </script>-->
         <meta charset="utf-8">
         <META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,14 +46,55 @@
                 margin: 0px auto;
                 margin-top: 50px;
             }
-            #helpdiv {
+            
+            .mainMenuContainer {
                 font-family: 'Orbitron', sans-serif;
-                display: none;
                 color: azure;
                 background-color: #444;
-                width: 400px;
+                width: 500px;
+                border-radius: 3px;
                 margin: 0 auto;
                 padding: 10px;
+            }
+            
+            #helpdiv {
+                display: none;
+            }
+            
+            #highscorespart {
+                display: none;
+            }
+
+            .hstable {
+                display: block;
+                border: 2px solid gray;
+            }
+
+            .thname {
+                width: 250px;
+                min-width: 100px;
+            }
+
+            .thscore {
+                width: 250px;
+                min-width: 120px;
+            }
+
+            .thdate {
+                width: calc(100% - 66%);
+                min-width: 120px;
+            }
+
+            th {
+                border: 2px solid gray;
+            }
+
+            td {
+                text-align: center;
+
+                border: 1px solid gray;
+                vertical-align: middle;
+                padding: 5px;
             }
             .gameTitle {
                 font-family: 'Orbitron', sans-serif;
@@ -66,6 +107,12 @@
                 animation-name: example;
                 animation-duration: 2s;
                 animation-iteration-count: infinite;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
             @keyframes example {
                 0%   {text-shadow: -5px -5px 10px #ff6666, 5px 5px 15px #ff6666;}
@@ -142,13 +189,21 @@
             <button class="mybutton success" id="highscoresbtn">HIGH SCORES</button>
         </div>
         
-        <div id="helpdiv">
+        <div id="helpdiv" class="mainMenuContainer">
             <button class="mybutton success" id="helpback">BACK</button>
             <br>
             <p>Shoot the alien ships and do not let them shoot you down!</p>
             <br>
             <p><span style="color: #ee9;">Controls:</span> mouse</p>
             <p><span style="color: #ee9;">Fire:</span> left mouse button</p>
+        </div>
+        
+        <div id="highscorespart" class="mainMenuContainer">
+                <button class="mybutton success" id="highscoresexit">BACK</button>
+                <p>High Scores:</p>
+                <div id="highscorestable">
+                </div>
+                <button class="mybutton success" id="clearscores">Clear scores</button>
         </div>
         
         <div class="canvasDiv">
@@ -161,9 +216,9 @@
         <script src="js/input.js"></script>
         <script src="js/sprite.js"></script>
         <script src="js/animation.js"></script>
-        <script src="js/button.js"></script>
         <script src="js/hud.js"></script>
         <script src="js/dot.js"></script>
+        <script src="js/wall.js"></script>
         <script src="js/bullet.js"></script>
         <script src="js/alien.js"></script>
         <script src="js/player.js"></script>

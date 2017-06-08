@@ -40,6 +40,7 @@
     var looseStep = 0;
     
     var gameManager = new GameManager();
+    
     // https://opengameart.org/content/darker-waves
     //var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
     //audio.loop = true;
@@ -53,6 +54,7 @@
 
     
     function update() {
+        
         if (gameState !==  GameState.MainMenu) {
             
             // GO TO THE NEXT LEVEL
@@ -80,9 +82,43 @@
             if (gameState === GameState.GameLoose) {
                 looseStep ++;
                 restartText.update("BACK TO MAIN MENU IN "+ (looseTimeOutSec - Math.floor(looseStep / 60))+" sec.");
-                //console.log(looseStep);
+
                 if (looseStep > looseTimeOut) {
                     // BACK TO THE MAIN MENU
+                    
+                    if (playerName === undefined) {
+                        var playerName = prompt('Please enter your name', 'Player');
+                        if (playerName !== '') {
+                            if (typeof(window.localStorage) !== "undefined") {
+                                //alert('Congratulations!');
+                                var highScores = JSON.parse(localStorage.getItem("highscores"));
+                                var temp = new Object;
+                                temp.name = playerName;
+                                var today = new Date();
+                                var dd = today.getDate();
+                                var mm = today.getMonth()+1; //January is 0!
+                                var yyyy = today.getFullYear();
+                                if(dd<10) {
+                                    dd='0'+dd;
+                                } 
+                                if(mm<10) {
+                                    mm='0'+mm;
+                                } 
+                                today = mm+'/'+dd+'/'+yyyy;
+                                temp.date = today;
+                                temp.score = score;
+
+                                if (highScores === null) highScores = [];
+
+                                highScores.push(temp);
+                                localStorage.setItem("highscores", JSON.stringify(highScores));
+                            }
+                            else {
+                                alert('Warning! No Local Storage support!');
+                            }
+                        }
+                    }
+                    
                     gameManager.clearLevel();
                     looseStep = 0;
                     gameState = GameState.MainMenu;
@@ -95,6 +131,7 @@
     
     
     function draw(context) {
+        
         if (gameState !==  GameState.MainMenu) {
             // CLEAR CANVAS CONTEXT
             GameCanvas.ctx.clearRect(0, 0, GameCanvas.screenWidth, GameCanvas.screenHeight);
@@ -105,19 +142,21 @@
             
             if (gameState === GameState.GameWon) {
                 this.gameManager.player.y -= 3;
+                this.gameManager.alienBullet.shot = false;
                 this.gameManager.player.isShooting = false;
                 if (this.gameManager.player.y < -80) {
                     gameState = GameState.NextLexel;
                 }
                 winText.draw();
             }
-
+            
             gameManager.draw(context);
         }
     }
     
     // GAME LOOP
-    function mainLoop() { 
+    function mainLoop() {
+        
         update();
         draw(GameCanvas.ctx);
         
@@ -126,8 +165,73 @@
             endGameText.draw();
             restartText.draw();
         }
+        
         requestAnimationFrame(mainLoop);
     }   
+    
+    function showHighScores() {
+        if (typeof(window.localStorage) !== "undefined") {
+
+            // RETRIVE FROM STORAGE
+            var highscores = JSON.parse(localStorage.getItem("highscores"));
+            var table = 0;
+
+            if (highscores !== null) {
+                table = document.createElement('table');
+
+                // FIRST ROW WITH COLUMN TITLES
+                var trtitles = document.createElement('tr');
+
+                var thname = document.createElement('th');
+                var textthname = document.createTextNode('Name');
+                thname.appendChild(textthname);
+                thname.className = "thname";
+
+                var thscore = document.createElement('th');
+                var textthscore = document.createTextNode('Score');
+                thscore.appendChild(textthscore);
+                thscore.className = "thscore";
+
+                var thdate = document.createElement('th');
+                var textthdate = document.createTextNode('Date');
+                thdate.appendChild(textthdate);
+                thdate.className = "thdate";
+
+                trtitles.appendChild(thname);
+                trtitles.appendChild(thscore);
+                trtitles.appendChild(thdate);
+
+                table.appendChild(trtitles);
+
+                // NEXT ROWS
+                for (i = 0; i < highscores.length; i++) {
+                    var trrow1 = document.createElement('tr'); 
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    var text1 = document.createTextNode(highscores[i].name);
+                    var text2 = document.createTextNode(highscores[i].score);
+                    var text3 = document.createTextNode(highscores[i].date);
+                    td1.appendChild(text1);
+                    td2.appendChild(text2);
+                    td3.appendChild(text3);
+                    trrow1.appendChild(td1);
+                    trrow1.appendChild(td2);
+                    trrow1.appendChild(td3);
+                    table.appendChild(trrow1);          
+                }    
+            }
+            else {
+                table = document.createElement('p');
+                table.appendChild(document.createTextNode("No scores detected!"));
+            }
+            document.getElementById('highscorestable').appendChild(table);
+            
+        } else {
+            alert('Warning! No Local Storage support!');
+            location.reload();
+        }
+    }
     
     window.onload = function() {
         
@@ -154,6 +258,31 @@
             document.getElementById("helpdiv").style.display = 'none';
         });
         
+        document.getElementById("highscoresbtn").addEventListener('click', function() {
+            document.getElementById("mainmenudiv").style.display = 'none';
+            document.getElementById("highscorespart").style.display = 'block';
+            if (typeof(window.localStorage) !== "undefined") {
+                showHighScores();
+            }
+            else {
+                alert('Warning! No Local Storage support!');
+            }
+        });
+        
+        document.getElementById("highscoresexit").addEventListener('click', function() {
+            document.getElementById("mainmenudiv").style.display = 'block';
+            document.getElementById('highscorestable').innerHTML = '';
+            document.getElementById("highscorespart").style.display = 'none';
+        });
+        
+        document.getElementById("clearscores").addEventListener('click', function() {
+            var r = confirm('Delete all scores?');
+            if (r === true) {
+                localStorage.setItem("highscores", JSON.stringify(null));
+                location.reload();
+            }
+        });
+        
         GameCanvas.create();
         
         GameCanvas.canvas.addEventListener('mousemove', function(evt) {
@@ -163,7 +292,9 @@
                     && (gameState === GameState.Game)) gameManager.player.x = mousePos.x - 25;
             if (mousePos.y > 250
                     && mousePos.y < GameCanvas.screenHeight - 35
-                    && (gameState === GameState.Game)) gameManager.player.y = mousePos.y;
+                    && (gameState === GameState.Game)) {
+                //gameManager.player.y = mousePos.y;
+            }
         }, false);
 
         function getMousePos(canvas, evt) {
@@ -189,8 +320,6 @@
         livesText = new HUD_Text("LIVES: "+lives, 250, 20, '24px Orbitron', 'Beige');
         levelText = new HUD_Text("LIVES: "+level, 450, 20, '24px Orbitron', 'lime');
         
-        //winButton = new Button(50, 50, 200, 30, 'NEXT LEVEL', '#410', '#ccc');
-
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         requestAnimationFrame(mainLoop);
     };
