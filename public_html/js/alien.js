@@ -4,6 +4,7 @@ var Alien = function(sprite, x, y, level) {
     this.x = x;
     this.y = y;
     this.level = level;
+
     this.width = 32;
     this.height = 32;
     this.alive = true;
@@ -63,14 +64,14 @@ var Alien = function(sprite, x, y, level) {
 
 
 // ALIEN BULLET
-var AlienBullet = function(x, y, level) {
+var AlienBullet = function(x, y, level, gameManager) {
     this.x = x;
     this.y = y;
     this.speed = level * 2;
     this.shot = false;
     this.hitAudio = new Audio('music/hit.wav');
     this.hitAudio.volume = 0.3;
-    
+    this.gameManager = gameManager;
     this.sprite = new Sprite('images/bulletAlien.png');
     
     this.update = function() {
@@ -80,7 +81,7 @@ var AlienBullet = function(x, y, level) {
             
             this.checkCollisions();
             
-            if (this.y > GameCanvas.screenHeight + 20) {
+            if (this.y > 550) {
                 this.shot = false;
                 this.y = 0;
                 this.x = 0;
@@ -90,25 +91,24 @@ var AlienBullet = function(x, y, level) {
     
     this.checkCollisions = function() {
         
-        for (i = 0; i < gameManager.walls.length; i++) {
-            if (this.x + 4> (gameManager.walls[i].x)
-                && (this.x +2 < gameManager.walls[i].x + gameManager.walls[i].width)
-                && (this.y > gameManager.walls[i].y)
-                && (this.y < gameManager.walls[i].y + gameManager.walls[i].height)
-                && gameManager.walls[i].alive) {
+        for (i = 0; i < this.gameManager.walls.length; i++) {
+            if (this.x + 4> (this.gameManager.walls[i].x)
+                && (this.x +2 < this.gameManager.walls[i].x + this.gameManager.walls[i].width)
+                && (this.y > this.gameManager.walls[i].y)
+                && (this.y < this.gameManager.walls[i].y + this.gameManager.walls[i].height)
+                && this.gameManager.walls[i].alive) {
                 this.shot = false;
-                //console.log('Wall hit!');
-                gameManager.walls[i].health --;
-                if (gameManager.walls[i].health <= 0) gameManager.walls[i].alive = false;
+                this.gameManager.walls[i].health --;
+                if (this.gameManager.walls[i].health <= 0) this.gameManager.walls[i].alive = false;
             }
         }
         
-        if (this.x +4 > (gameManager.player.x)
-            && (this.x + 2 < gameManager.player.x + gameManager.player.width)
-            && (this.y > gameManager.player.y)
-            && (this.y < gameManager.player.y + gameManager.player.height)
-            && gameManager.player.alive) {
-            lives--;
+        if (this.x +4 > (this.gameManager.player.x)
+            && (this.x + 2 < this.gameManager.player.x + this.gameManager.player.width)
+            && (this.y > this.gameManager.player.y)
+            && (this.y < this.gameManager.player.y + this.gameManager.player.height)
+            && this.gameManager.player.alive) {
+            shields--;
             this.shot = false;
             this.hitAudio.play();
         }

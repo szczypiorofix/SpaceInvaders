@@ -1,12 +1,15 @@
-var GameManager = function() {
+var GameManager = function(gameCanvas) {
     
+    this.gameCanvas = gameCanvas;
     this.player = null;
     this.alien = [];
     this.walls = [];
+    this.restore1HealthUpgrade = null;
     this.bullet = null;
     this.alienBullet = null;
     this.alienAlive = false;
     this.dots = [];
+    this.instance = this;
   
     this.clearLevel = function() {
         this.alien = [];
@@ -29,6 +32,14 @@ var GameManager = function() {
                     this.alienBullet.x = collection[i].x + 12;
                     this.alienBullet.y = collection[i].y + 35;
                     this.alienBullet.shot = true;
+                    
+                    if (!this.restore1HealthUpgrade.flying) this.restore1HealthUpgrade.counter++;
+                    
+                    if (this.restore1HealthUpgrade.counter > this.restore1HealthUpgrade.frequency && !this.restore1HealthUpgrade.flying) {
+                        this.restore1HealthUpgrade.x = Math.floor(Math.random() * (this.gameCanvas.screenWidth - 200) + 100);
+                        this.restore1HealthUpgrade.flying = true;
+                        this.restore1HealthUpgrade.counter = 0;
+                    }
                 }   
             }
         }
@@ -42,6 +53,7 @@ var GameManager = function() {
         this.updateCollection(this.walls);
         this.bullet.update();
         this.alienBullet.update();
+        this.restore1HealthUpgrade.update();
     };
     
     this.drawCollection = function(collection, context) {
@@ -57,6 +69,7 @@ var GameManager = function() {
         this.drawCollection(this.alien, context);
         this.bullet.draw(context);
         this.alienBullet.draw(context);
+        this.restore1HealthUpgrade.draw(context);
     };
     
     this.createBackground = function() {
@@ -71,11 +84,11 @@ var GameManager = function() {
         this.alienAlive = true;
         this.bullet = new Bullet(200, 200);
         
-        this.alienBullet = new AlienBullet(200, 200, level);
+        this.alienBullet = new AlienBullet(200, 200, level, this.instance);
         
         this.createBackground();
         
-        this.player = new Player(GameCanvas.screenWidth / 2 - 35, GameCanvas.screenHeight - 50, this.bullet);
+        this.player = new Player(this.gameCanvas.screenWidth / 2 - 35, this.gameCanvas.screenHeight - 50, this.bullet);
         
         for (i = 0; i < 10; i++) {
             this.alien[i] = new Alien(new Sprite('images/alien1.png'), 70 + (i * 50), 80, level);
@@ -91,6 +104,8 @@ var GameManager = function() {
         for (i = 0; i < 3; i++) {
             this.walls[i] = new Wall(new Sprite('images/wall.png'), 110 + (i * 180), 350);
         }
+        
+        this.restore1HealthUpgrade = new Restore1Health(new Sprite('images/restore1h.png'), this.instance);
     };
     
     this.isLevelEnd = function() {

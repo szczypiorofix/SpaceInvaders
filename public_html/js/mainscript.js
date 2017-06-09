@@ -26,20 +26,20 @@
     var gameState = null;
     
     var scoreText = null;
-    var livesText = null;
+    var shieldsText = null;
     var levelText = null;
     var endGameText = null;
     var restartText = null;
     var winText = null;
     var level = 1;
     var score = 0;
-    var initialLives = 5;
-    var lives = initialLives;
+    var initialShields = 5;
+    var shields = initialShields;
     var looseTimeOutSec = 3;
     var looseTimeOut = looseTimeOutSec * 60;
     var looseStep = 0;
     
-    var gameManager = new GameManager();
+    var gameManager = null;
     
     // https://opengameart.org/content/darker-waves
     //var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
@@ -52,7 +52,6 @@
     });
 
 
-    
     function update() {
         
         if (gameState !==  GameState.MainMenu) {
@@ -66,7 +65,6 @@
             }
             
             scoreText.update("SCORE: "+score);
-            livesText.update("LIVES: "+lives);
             levelText.update("LEVEL: "+level);
             gameManager.update();
 
@@ -82,7 +80,7 @@
             if (gameState === GameState.GameLoose) {
                 looseStep ++;
                 restartText.update("BACK TO MAIN MENU IN "+ (looseTimeOutSec - Math.floor(looseStep / 60))+" sec.");
-
+                
                 if (looseStep > looseTimeOut) {
                     // BACK TO THE MAIN MENU
                     
@@ -90,7 +88,6 @@
                         var playerName = prompt('Please enter your name', 'Player');
                         if (playerName !== '') {
                             if (typeof(window.localStorage) !== "undefined") {
-                                //alert('Congratulations!');
                                 var highScores = JSON.parse(localStorage.getItem("highscores"));
                                 var temp = new Object;
                                 temp.name = playerName;
@@ -137,7 +134,8 @@
             GameCanvas.ctx.clearRect(0, 0, GameCanvas.screenWidth, GameCanvas.screenHeight);
 
             scoreText.draw();
-            livesText.draw();
+            shieldsText.draw();
+            shieldsText.drawBar(shields, initialShields, GameCanvas.ctx);
             levelText.draw();
             
             if (gameState === GameState.GameWon) {
@@ -152,6 +150,10 @@
             
             gameManager.draw(context);
         }
+        if (gameState === GameState.GameLoose) {
+            endGameText.draw();
+            restartText.draw();
+        }
     }
     
     // GAME LOOP
@@ -159,13 +161,6 @@
         
         update();
         draw(GameCanvas.ctx);
-        
-        if (gameState === GameState.GameLoose) {
-            livesText.update("LIVES: "+lives);
-            endGameText.draw();
-            restartText.draw();
-        }
-        
         requestAnimationFrame(mainLoop);
     }   
     
@@ -239,7 +234,7 @@
         
         document.getElementById("playbtn").addEventListener('click', function() {
             level = 1;
-            lives = initialLives;
+            lives = initialShields;
             score = 0;
             document.getElementById("mainmenudiv").style.display = 'none';
             document.getElementById("gameCanvas").style.display = 'block';
@@ -285,6 +280,8 @@
         
         GameCanvas.create();
         
+        gameManager = new GameManager(GameCanvas);
+                
         GameCanvas.canvas.addEventListener('mousemove', function(evt) {
             var mousePos = getMousePos(GameCanvas.canvas, evt);
             if (mousePos.x < GameCanvas.screenWidth - 10
@@ -312,13 +309,13 @@
         GameCanvas.canvas.onmouseup = function() {
             if (gameState === GameState.Game) gameManager.player.isShooting = false;
         };
-
-        endGameText = new HUD_Text("GAME OVER", 210, GameCanvas.screenHeight / 2, '42px Orbitron', 'red');
+        
+        endGameText = new HUD_Text("GAME OVER", 200, GameCanvas.screenHeight / 2, '42px Orbitron', 'red');
         winText = new HUD_Text("YOU WIN !!!", 230, GameCanvas.screenHeight / 2, '42px Orbitron', 'crimson');
-        restartText = new HUD_Text("BACK TO MAIN MENU IN ", 210, 280, '18px Orbitron', 'crimson');
-        scoreText = new HUD_Text("SCORE: "+score, 50, 20, '24px Orbitron', 'lime');
-        livesText = new HUD_Text("LIVES: "+lives, 250, 20, '24px Orbitron', 'Beige');
-        levelText = new HUD_Text("LIVES: "+level, 450, 20, '24px Orbitron', 'lime');
+        restartText = new HUD_Text("BACK TO MAIN MENU IN ", 200, 280, '18px Orbitron', 'crimson');
+        scoreText = new HUD_Text("SCORE: "+score, 10, 20, '24px Orbitron', 'lime');
+        shieldsText = new HUD_Text("SHIELDS", 250, 20, '24px Orbitron', 'Beige');
+        levelText = new HUD_Text("LEVEL: "+level, 500, 20, '24px Orbitron', 'lime');
         
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         requestAnimationFrame(mainLoop);
