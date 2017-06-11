@@ -72,7 +72,7 @@
                 gameState = GameState.GameWon;
             }
 
-            if (lives <= 0) {
+            if (shields <= 0) {
                 gameManager.player.alive = false;
                 gameState = GameState.GameLoose;
             }
@@ -234,7 +234,7 @@
         
         document.getElementById("playbtn").addEventListener('click', function() {
             level = 1;
-            lives = initialShields;
+            shields = initialShields;
             score = 0;
             document.getElementById("mainmenudiv").style.display = 'none';
             document.getElementById("gameCanvas").style.display = 'block';
