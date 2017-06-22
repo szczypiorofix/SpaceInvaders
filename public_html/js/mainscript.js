@@ -14,14 +14,6 @@
         }
     };   
 
-// OBSŁUGA DOTYKU
-//        var touchzone = document.getElementById("gameCanvas");
-//        touchzone.addEventListener("touchstart", touchHandler, false);
-//
-//        function touchHandler(event) {
-//            console.log('x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY);
-//        }
-
     var GameState = {MainMenu: 0, Game: 1, GameWon: 2, GameLoose: 3, NextLexel: 4};
     var gameState = null;
     
@@ -40,11 +32,6 @@
     var looseStep = 0;
     
     var gameManager = null;
-    
-    // https://opengameart.org/content/darker-waves
-    //var audio = new Audio('music/Zander Noriega - Darker Waves.mp3');
-    //audio.loop = true;
-    //audio.play();
     
     var player = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
     player.load('music/chiptune_no_170.mod', function(buffer) {
@@ -72,7 +59,7 @@
                 gameState = GameState.GameWon;
             }
 
-            if (lives <= 0) {
+            if (shields <= 0) {
                 gameManager.player.alive = false;
                 gameState = GameState.GameLoose;
             }
@@ -234,7 +221,7 @@
         
         document.getElementById("playbtn").addEventListener('click', function() {
             level = 1;
-            lives = initialShields;
+            shields = initialShields;
             score = 0;
             document.getElementById("mainmenudiv").style.display = 'none';
             document.getElementById("gameCanvas").style.display = 'block';
@@ -284,13 +271,8 @@
                 
         GameCanvas.canvas.addEventListener('mousemove', function(evt) {
             var mousePos = getMousePos(GameCanvas.canvas, evt);
-            if (mousePos.x < GameCanvas.screenWidth - 10
-                    && mousePos.x > gameManager.player.width
-                    && (gameState === GameState.Game)) gameManager.player.x = mousePos.x - 25;
-            if (mousePos.y > 250
-                    && mousePos.y < GameCanvas.screenHeight - 35
-                    && (gameState === GameState.Game)) {
-                //gameManager.player.y = mousePos.y;
+            if (mousePos.x < GameCanvas.screenWidth - 10 && mousePos.x > gameManager.player.width && (gameState === GameState.Game)) {
+                gameManager.player.x = mousePos.x - 25;
             }
         }, false);
 
