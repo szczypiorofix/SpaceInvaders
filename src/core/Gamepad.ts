@@ -1,7 +1,14 @@
 export class GamePad {
 
-    constructor() {
 
+    private curGamePad: number;
+
+    constructor() {
+        this.curGamePad = 0;
+    }
+
+    public getCurrentGamePad() {
+        return this.curGamePad;
     }
 
 
