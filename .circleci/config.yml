@@ -13,8 +13,6 @@ jobs:
           paths:
            - ./node_modules
        - run: git log --oneline --decorate > public/changelog.txt
-       - run: npm run format
-       - run: npm run lint
        - run: npm run build
        - run: npm test
        - run: node deploy_app.js

@@ -2,11 +2,18 @@
 
 This is a simple space shooter game.
 
+This game is currently being rewritten completely from scratch with React and npm modules.
+Previously it was written with vanilla JavaScript.
+
+
+## Attention!
+
+This game is currently under development.
+
 
 ## Website
 
 [si.wroblewskipiotr.pl](https://si.wroblewskipiotr.pl)
-
 
 
 
