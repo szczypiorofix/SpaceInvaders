@@ -12,7 +12,8 @@ This game is currently under development.
 
 
 ## Status
-Latest build: [![CircleCI](https://circleci.com/gh/szczypiorofix/SpaceInvaders.svg?style=svg)](https://circleci.com/gh/szczypiorofix/furyroad)
+
+Latest build: [![CircleCI](https://circleci.com/gh/szczypiorofix/SpaceInvaders.svg?style=svg)](https://circleci.com/gh/szczypiorofix/SpaceInvaders)
 ![Version](https://img.shields.io/badge/version-0.0.05-blue.svg "Version icon")
 
 
