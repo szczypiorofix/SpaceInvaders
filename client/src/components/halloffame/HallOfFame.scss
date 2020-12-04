@@ -1,0 +1,51 @@
+// ==================== HALL OF FAME MENU ====================
+
+@import '../variables';
+
+
+div#root div.HallOfFame {
+    
+    text-align: center;
+
+    h1 {
+        font-weight: bold;
+    }
+
+    div.div-menu-button {
+        text-align: left;
+        button {
+            margin-left: 10px;
+        }        
+    }
+
+    div.trophy-icon {
+        font-size: 72px;
+        color: $platinum;
+        margin-bottom: 20px;
+    }
+
+    ol {
+        width: 180px;
+        margin: 0 auto;
+        counter-reset: my-awesome-counter;
+        list-style: none;
+
+        li {
+            text-align: left;
+            margin: auto 0;
+            counter-increment: my-awesome-counter;
+            text-align: left;
+        &::before {
+            color: $platinum;
+            text-align: right;
+            font-weight: bold;
+            margin-right: 10px;
+            content: counter(my-awesome-counter) ". ";
+            display: inline-block;
+            min-width: 30px;;
+        }
+        }
+        
+        
+    }
+}

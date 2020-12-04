@@ -1,0 +1,25 @@
+// ==================== SPLASH MENU ====================
+
+@import '../variables';
+
+
+div#root div.SplashMenu {
+    
+    text-align: center;
+
+    h1 {
+        font-weight: bold;
+        font-size: 72px;
+    }
+
+    div.div-splash-button {
+        text-align: center;
+        
+        button.splash-button {
+            font-size: 48px;
+            margin-left: 10px;
+            width: 320px;
+            border-radius: 16px;
+        }        
+    }
+}

@@ -1,0 +1,33 @@
+// ==================== MAIN GAME ====================
+
+// import color palette
+@import "../_variables";
+
+
+div#root div.Game {
+    text-align: center;
+    
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    h1 {
+      text-align: center;
+    }
+
+    button {
+      margin: 20px 0;
+    }
+    
+    div.canvas-main {
+      margin: 0 auto;
+      width: 640px;
+      canvas#gameCanvas {
+        cursor: none;
+        background-color: $rich-black-fogra-29;
+      }
+    }
+
+}

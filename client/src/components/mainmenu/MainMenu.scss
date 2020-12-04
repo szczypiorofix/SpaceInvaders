@@ -1,0 +1,25 @@
+// ==================== MAIN MENU ====================
+
+div#root div.MainMenu {
+    text-align: center;  
+
+    h1 {
+      font-size: 48px;
+    }
+
+    div.menu-buttons {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        position: relative;
+        span.icon {
+          position: absolute;
+          left: 4px;
+          margin-left: 10px;
+        }
+      }
+      
+    }
+    
+}
