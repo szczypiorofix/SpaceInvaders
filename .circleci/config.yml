@@ -8,6 +8,7 @@ jobs:
        - add_ssh_keys:
           fingerprints:
             - "67:3a:22:2c:f1:74:2c:ae:64:7b:5f:93:69:eb:1e:fb"
+       
        # root module, mainly ftp-deploy
        - restore_cache:
           key: dependency-appRootCache-{{ checksum "./package.json" }}
@@ -41,12 +42,12 @@ jobs:
        - run: npm run build --prefix ./server
 
        # deploy
+       - run: cp server/package.json server/build/
        - run: node deploy_server.js
        - run: node deploy_app.js
 
        # build on server
        - run: git log --oneline --decorate > client/public/changelog.txt
-       - run: cp server/package.json server/build/
        - run: ssh-keyscan -H 's21.mydevil.net' >> ~/.ssh/known_hosts
        - run: ssh $SSH_USER@$SSH_HOST "cd domains/si.wroblewskipiotr.pl/public_nodejs/ && npm install && devil www restart si.wroblewskipiotr.pl"
 
