@@ -1,0 +1,49 @@
+{
+  "name": "si-server",
+  "description": "Space Invaders - server app",
+  "version": "0.0.05",
+  "private": true,
+  "scripts": {
+    "start": "nodemon -x ts-node src/app.ts",
+    "build": "tsc ./",
+    "dev": "ts-node-dev --respawn --transpileOnly src/app.ts",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "furyroad-interfaces": "^0.1.16",
+    "mongoose": "^5.10.6",
+    "reflect-metadata": "^0.1.13",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.8",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^12.12.62",
+    "@types/uuid": "^3.4.6",
+    "eslint": "^6.6.0",
+    "prettier": "^1.18.2",
+    "ts-node-dev": "^1.0.0-pre.62",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.7"
+  }
+}
