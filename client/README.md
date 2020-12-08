@@ -1,4 +1,4 @@
-# Space Invaders
+# Space Invaders - Client Application
 
 This is a simple space shooter game.
 
