@@ -16,7 +16,6 @@ jobs:
           key: dependency-appRootCache-{{ checksum "./package.json" }}
           paths:
            - ./node_modules
-       - run: npm run build
        
        # client
        - restore_cache:
@@ -40,13 +39,14 @@ jobs:
           paths:
            - ./server/node_modules
        - run: npm run build --prefix ./server
-       
-       - run: git log --oneline --decorate > client/public/changelog.txt
-       - run: cp server/package.json server/build/
 
+       # deploy
        - run: node deploy_server.js
        - run: node deploy_app.js
 
+       # build on server
+       - run: git log --oneline --decorate > client/public/changelog.txt
+       - run: cp server/package.json server/build/
        - run: ssh-keyscan -H 's21.mydevil.net' >> ~/.ssh/known_hosts
        - run: ssh $SSH_USER@$SSH_HOST "cd domains/si.wroblewskipiotr.pl/public_nodejs/ && npm install && devil www restart si.wroblewskipiotr.pl"
 
