@@ -37,8 +37,8 @@ app.use("/api/news", newsRouter);
 
 
 app.get("/", (request: Request, response: Response, next: NextFunction) => {
-  console.log("Hello there!");
-  response.end("General Kenobi!");
+  console.log("Client connected.");
+  response.end("Ding! Ding!");
 });
 
 
