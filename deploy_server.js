@@ -17,6 +17,14 @@ var serverAppConfig = {
 //     console.log(data);
 // });
 
+//  ///
+
+// res/music/music1.mp3 nie jest kopiowany w trakcie builda w circleci
+
+// ///
+
+
+
 ftpDeploy.deploy(serverAppConfig, function(err, res) {
     if (err) console.log(err)
     else console.log('Upload server app: done: '+res);
