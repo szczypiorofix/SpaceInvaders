@@ -1,6 +1,6 @@
 {
-  "name": "furyroad",
-  "description": "Fury Road - a post-apocalyptic game.",
+  "name": "si",
+  "description": "Space Invaders - a post-apocalyptic game.",
   "version": "0.1.5",
   "private": true,
   "dependencies": {
