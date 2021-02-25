@@ -1,6 +1,7 @@
 import React from 'react';
 import './GameSettings.scss';
-import { IMainMenuChoice, StateType } from '../../core';
+import { StateType } from '../../core/Engine';
+import { IMainMenuChoice } from '../game/GameModel';
 
 
 export default class GameSettings extends React.Component<IMainMenuChoice, {}> {

@@ -4,7 +4,7 @@ import Game from './game/Game';
 import HallOfFame from './halloffame/HallOfFame';
 // import { isGamepadSupported } from './core/Utils';
 import './App.scss';
-import { GameState, StateType } from '../core';
+import { GameState, StateType } from '../core/Engine';
 import GameSettings from './gamesettings/GameSettings';
 import SplashMenu from './splashmenu/SplashMenu';
 

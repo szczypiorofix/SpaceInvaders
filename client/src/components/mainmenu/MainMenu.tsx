@@ -1,6 +1,7 @@
 import React from 'react';
 import './MainMenu.scss';
-import { IMainMenuChoice, StateType } from '../../core/GameState';
+import { StateType } from '../../core/Engine';
+import { IMainMenuChoice } from '../game/GameModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +29,6 @@ class MainMenu extends React.Component<IMainMenuChoice, {}> {
 
         return (
             <div className="MainMenu">
-                <audio ref={this.currentMusic} autoPlay onError={() => console.log("ERROR loading audio file !!!")}>
-                    <source src="/song" onError={() => console.log("Request /song error!")}></source>
-                </audio>
                 <h1>SPACE INVADERS</h1>
                 <div className="menu-buttons">
                     <button className="menu-button" onClick={ () => switchGameStateTo(StateType.Game)       } ><span className="icon"><FontAwesomeIcon icon={ faPlay }/></span> START NEW GAME</button>

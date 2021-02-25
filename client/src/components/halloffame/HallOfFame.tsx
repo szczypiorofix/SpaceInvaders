@@ -1,6 +1,7 @@
 import React from 'react';
 import './HallOfFame.scss';
-import { IMainMenuChoice, StateType } from '../../core';
+import { IMainMenuChoice } from '../game/GameModel';
+import { StateType } from '../../core/Engine';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';

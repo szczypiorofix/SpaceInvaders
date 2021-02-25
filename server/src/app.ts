@@ -46,23 +46,24 @@ app.get("/", (request: Request, response: Response, next: NextFunction) => {
 /**
  * GET /song - request for streaming music.
  */
-app.get("/song", (request: Request, response: Response, next: NextFunction) => {
-  const songPath: string = "./res/music/music1.mp3";
-  try {
-    const songFile: fs.Stats = fs.statSync(songPath);
-    if (songFile.isFile() && songFile.size > 0) {
-      console.log(`Sending ${songPath} to client. Size: ` + Math.floor(songFile.size / 1024) + ' kb.');
-      response.writeHead(200, {
-        "Content-Length": songFile.size,
-        "Content-Type": "audio/mpeg",
-      });
-      const reader: fs.ReadStream = fs.createReadStream(songPath, {
-        autoClose: true,
-        flags: "r",
-      });
-      reader.pipe(response);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
+
+// app.get("/song", (request: Request, response: Response, next: NextFunction) => {
+//   const songPath: string = "./res/music/music1.mp3";
+//   try {
+//     const songFile: fs.Stats = fs.statSync(songPath);
+//     if (songFile.isFile() && songFile.size > 0) {
+//       console.log(`Sending ${songPath} to client. Size: ` + Math.floor(songFile.size / 1024) + ' kb.');
+//       response.writeHead(200, {
+//         "Content-Length": songFile.size,
+//         "Content-Type": "audio/mpeg",
+//       });
+//       const reader: fs.ReadStream = fs.createReadStream(songPath, {
+//         autoClose: true,
+//         flags: "r",
+//       });
+//       reader.pipe(response);
+//     }
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });

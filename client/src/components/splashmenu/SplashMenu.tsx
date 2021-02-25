@@ -1,6 +1,7 @@
 import React from 'react';
 import './SplashMenu.scss';
-import { IMainMenuChoice, StateType } from '../../core';
+import { StateType } from '../../core/Engine';
+import { IMainMenuChoice } from '../game/GameModel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
