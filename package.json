@@ -4,7 +4,7 @@
   "version": "0.1.5",
   "private": true,
   "dependencies": {
-    "ftp-deploy": "^2.4.0"
+    "ftp-deploy": "^2.4.3"
   },
   "scripts": {},
   "browserslist": {
